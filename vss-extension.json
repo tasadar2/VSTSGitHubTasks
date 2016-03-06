@@ -1,0 +1,36 @@
+﻿{
+  "manifestVersion": 1,
+  "id": "vsts-buildrelease-tasks",
+  "name": "Build and Release tasks for VSTS",
+  "version": "0.1.23",
+  "publisher": "jakobehn",
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "description": "Build and Release tasks for Visual Studio Team Services",
+  "categories": [
+    "Build and release"
+  ],
+  "icons": {
+    "default": "icon.png"
+  },
+  "files": [
+    {
+      "path": "VSTSGitHub"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "publish-github-release",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "VSTSGitHub"
+      }
+    }
+  ]
+}
