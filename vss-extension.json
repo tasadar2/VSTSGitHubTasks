@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "vsts-buildrelease-tasks",
   "name": "Build and Release tasks for VSTS",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "publisher": "jakobehn",
   "targets": [
     {
@@ -18,7 +18,7 @@
   },
   "files": [
     {
-      "path": "VSTSGitHub"
+      "path": "VSTSGitHubTask"
     }
   ],
   "contributions": [
@@ -29,7 +29,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "VSTSGitHub"
+        "name": "VSTSGitHubTask"
       }
     }
   ]
