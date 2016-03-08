@@ -7,8 +7,8 @@
     <ProjectGuid>{8B494A60-3E85-4C2F-9A87-2191A78E888B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VSTSGitHub</RootNamespace>
-    <AssemblyName>VSTSGitHub</AssemblyName>
+    <RootNamespace>PublishGitHubRelease</RootNamespace>
+    <AssemblyName>PublishGitHubRelease</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\VSTSGitHubTask\</OutputPath>
+    <OutputPath>bin\debug\PublishGitHubReleaseTask\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -61,7 +61,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(SolutionDir)vss-extension.json $(TargetDir)\..\
+copy $(SolutionDir)icon.png $(TargetDir)\..\
+copy $(SolutionDir)screenshot1.png $(TargetDir)\..\
+copy $(SolutionDir)readme.md $(TargetDir)\..\
+copy $(SolutionDir)license.md $(TargetDir)\..\
+copy $(SolutionDir)PackageExtension.cmd $(TargetDir)\..\
+del $(TargetDir)\*.pdb</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

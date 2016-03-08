@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSTSGitHub", "VSTSGitHub\VSTSGitHub.csproj", "{8B494A60-3E85-4C2F-9A87-2191A78E888B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{30CBE33F-6C74-4BEF-9B39-1F6F9E8B64DF}"
 	ProjectSection(SolutionItems) = preProject
 		icon.png = icon.png
+		license.md = license.md
+		PackageExtension.cmd = PackageExtension.cmd
+		readme.md = readme.md
+		screenshot1.png = screenshot1.png
 		vss-extension.json = vss-extension.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublishGitHubRelease", "PublishGitHubRelease\PublishGitHubRelease.csproj", "{8B494A60-3E85-4C2F-9A87-2191A78E888B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
