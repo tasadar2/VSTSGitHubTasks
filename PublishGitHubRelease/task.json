@@ -13,7 +13,7 @@
   "version": {
     "Major": 0,
     "Minor": 9,
-    "Patch": 3
+    "Patch": 6
   },
   "minimumAgentVersion": "1.83.0",
   "inputs": [
@@ -62,8 +62,9 @@
     },
     {
       "name": "releaseBody",
-      "type": "multiline",
+      "type": "multiLine",
       "label": "Release Body",
+      "defaultValue": "",
       "required": false,
       "helpMarkDown": "Text describing the content of the tag. Markdown is supported"
     },

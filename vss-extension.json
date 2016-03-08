@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "jakobehn-vsts-github-tasks",
   "name": "VSTS Build and Release tasks for GitHub",
-  "version": "0.9.3",
+  "version": "0.9.6",
   "publisher": "jakobehn",
   "targets": [
     {
@@ -15,6 +15,10 @@
   ],
   "icons": {
     "default": "icon.png"
+  },
+  "branding": {
+    "color": "rgb(0, 128, 0)",
+    "theme": "dark"
   },
   "tags": [
     "GitHub",
