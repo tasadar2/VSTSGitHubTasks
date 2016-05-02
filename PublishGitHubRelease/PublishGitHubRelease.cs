@@ -44,6 +44,9 @@ namespace PublishGitHubRelease
         public bool PreRelease { get; set; }
 
         [Parameter(Mandatory = true)]
+        public bool AssetsOption { get; set; }
+
+        [Parameter(Mandatory = true)]
         public string[] Assets { get; set; }
 
         protected override void ProcessRecord()
@@ -70,6 +73,9 @@ namespace PublishGitHubRelease
 
                 var release = client.Repository.Release.Create(Owner, Repo, newRelease).Result;
                 WriteVerbose("Created release with id: " + release.Id + " at " + release.Url);
+
+                if (AssetsOption)
+                {
                 WriteVerbose("Uploading " + Assets.Count() + " assets");
                 foreach (var asset in Assets)
                 {
@@ -88,6 +94,7 @@ namespace PublishGitHubRelease
                         WriteVerbose("Uploaded " + uploadedAsset.Name);
                     }
                 }
+            }
             }
             catch (Exception e)
             {

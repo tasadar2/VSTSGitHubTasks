@@ -13,7 +13,7 @@
   "version": {
     "Major": 0,
     "Minor": 9,
-    "Patch": 6
+    "Patch": 27
   },
   "minimumAgentVersion": "1.83.0",
   "inputs": [
@@ -104,12 +104,21 @@
       "helpMarkDown": "Indicates whether the release is a prerelease"
     },
     {
+      "name": "assetsOption",
+      "type": "boolean",
+      "label": "Upload Assets",
+      "defaultValue": "true",
+      "required": true,
+      "helpMarkDown": "Uploads assets to the new release."
+    },
+    {
       "name": "assetsPattern",
       "type": "string",
       "label": "Assets To Upload",
       "defaultValue": "$(build.stagingDirectory)\\**\\*.zip",
       "required": true,
-      "helpMarkDown": "The files to upload as assets to the new release. Minimatch patterns are supported "
+      "helpMarkDown": "The files to upload as assets to the new release. Minimatch patterns are supported ",
+      "visibleRule": "assetsOption = true"
     }
   ],
   "instanceNameFormat": "Publish GitHub Release $(releaseName)",
