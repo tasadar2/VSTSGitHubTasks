@@ -14,6 +14,12 @@ namespace PublishGitHubRelease
         public string ApplicationName { get; set; }
 
         [Parameter(Mandatory = true)]
+        public string GitSourceOption { get; set; }
+
+        [Parameter(Mandatory = true)]
+        public string GitSourceUrl { get; set; }
+
+        [Parameter(Mandatory = true)]
         public string Token { get; set; }
 
         [Parameter(Mandatory = true)]
@@ -44,7 +50,13 @@ namespace PublishGitHubRelease
         {
             try
             {
-                var client = new GitHubClient(new ProductHeaderValue(ApplicationName));
+                var gitUri = GitHubClient.GitHubApiUrl;
+                if (GitSourceOption == "external")
+                {
+                    gitUri = new Uri(GitSourceUrl);
+                }
+
+                var client = new GitHubClient(new ProductHeaderValue(ApplicationName), gitUri);
                 var tokenAuth = new Credentials(Token);
                 client.Credentials = tokenAuth;
 
