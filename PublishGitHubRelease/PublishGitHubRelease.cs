@@ -43,7 +43,7 @@ namespace PublishGitHubRelease
         [Parameter(Mandatory = false)]
         public bool PreRelease { get; set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = false)]
         public string[] Assets { get; set; }
 
         protected override void ProcessRecord()
