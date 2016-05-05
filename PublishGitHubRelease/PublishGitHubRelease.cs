@@ -70,22 +70,26 @@ namespace PublishGitHubRelease
 
                 var release = client.Repository.Release.Create(Owner, Repo, newRelease).Result;
                 WriteVerbose("Created release with id: " + release.Id + " at " + release.Url);
-                WriteVerbose("Uploading " + Assets.Count() + " assets");
-                foreach (var asset in Assets)
-                {
-                    WriteVerbose("Uploading " + asset);
-                    using (var archiveContents = File.OpenRead(asset))
-                    {
-                        var fileName = Path.GetFileName(asset);
-                        var assetUpload = new ReleaseAssetUpload()
-                        {
-                            FileName = fileName,
-                            ContentType = "application/zip",
-                            RawData = archiveContents
-                        };
 
-                        var uploadedAsset = client.Repository.Release.UploadAsset(release, assetUpload).Result;
-                        WriteVerbose("Uploaded " + uploadedAsset.Name);
+                if (Assets != null)
+                {
+                    WriteVerbose("Uploading " + Assets.Count() + " assets");
+                    foreach (var asset in Assets)
+                    {
+                        WriteVerbose("Uploading " + asset);
+                        using (var archiveContents = File.OpenRead(asset))
+                        {
+                            var fileName = Path.GetFileName(asset);
+                            var assetUpload = new ReleaseAssetUpload()
+                            {
+                                FileName = fileName,
+                                ContentType = "application/zip",
+                                RawData = archiveContents
+                            };
+
+                            var uploadedAsset = client.Repository.Release.UploadAsset(release, assetUpload).Result;
+                            WriteVerbose("Uploaded " + uploadedAsset.Name);
+                        }
                     }
                 }
             }
