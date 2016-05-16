@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Management.Automation;
 using Octokit;
 
@@ -53,7 +52,7 @@ namespace PublishGitHubRelease
                 var gitUri = GitHubClient.GitHubApiUrl;
                 if (GitSourceOption == "external")
                 {
-                    gitUri = new Uri(GitSourceUrl);
+                    gitUri = GetGitSourceUri(GitSourceUrl, Owner);
                 }
 
                 var client = new GitHubClient(new ProductHeaderValue(ApplicationName), gitUri);
@@ -73,7 +72,7 @@ namespace PublishGitHubRelease
 
                 if (Assets != null)
                 {
-                    WriteVerbose("Uploading " + Assets.Count() + " assets");
+                    WriteVerbose("Uploading " + Assets.Length + " assets");
                     foreach (var asset in Assets)
                     {
                         WriteVerbose("Uploading " + asset);
@@ -98,6 +97,20 @@ namespace PublishGitHubRelease
                 WriteVerbose("Error when publishing release: " + e);
                 throw;
             }
+        }
+
+        private static Uri GetGitSourceUri(string gitUrl, string owner)
+        {
+            var gitUri = new Uri(gitUrl);
+            var gitSourceUri = new Uri(gitUri.GetLeftPart(UriPartial.Authority));
+
+            var segmentEnumerator = gitUri.Segments.GetEnumerator();
+            while (segmentEnumerator.MoveNext() && ((string)segmentEnumerator.Current).Trim('/') != owner)
+            {
+                gitSourceUri = new Uri(gitSourceUri, (string)segmentEnumerator.Current);
+            }
+
+            return gitSourceUri;
         }
 
     }
