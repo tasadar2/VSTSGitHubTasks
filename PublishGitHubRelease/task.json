@@ -33,7 +33,8 @@
       "defaultValue": "github",
       "options": {
         "github": "GitHub",
-        "external": "External Git"
+        "external": "External Git",
+        "repository": "Use Source Repository"
       }
     },
     {
@@ -49,14 +50,16 @@
       "type": "string",
       "label": "Token",
       "required": true,
-      "helpMarkDown": "GitHub Personal Access Token (PAT). Use a secret variable for this value"
+      "helpMarkDown": "GitHub Personal Access Token (PAT). Use a secret variable for this value",
+      "visibleRule": "gitSourceOption != repository"
     },
     {
       "name": "repo",
       "type": "string",
       "label": "Repository Name",
       "required": true,
-      "helpMarkDown": "Name of the repository"
+      "helpMarkDown": "Name of the repository",
+      "visibleRule": "gitSourceOption != repository"
     },
     {
       "name": "owner",

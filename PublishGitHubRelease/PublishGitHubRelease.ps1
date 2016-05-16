@@ -27,6 +27,20 @@ Write-Verbose -Verbose "draft = $draft"
 Write-Verbose -Verbose "prerelease = $prerelease"
 Write-Verbose -Verbose "assetsPattern = $assetsPattern"
 
+function GetEndpointData
+{
+	param([string][ValidateNotNullOrEmpty()]$connectedServiceName)
+
+	$serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $connectedServiceName
+
+	if (!$serviceEndpoint)
+	{
+		throw "A Connected Service with name '$ConnectedServiceName' could not be found.  Ensure that this Connected Service was successfully provisioned using the services tab in the Admin UI."
+	}
+
+    return $serviceEndpoint
+}
+
 # Convert checkbox params to booleans
 [bool]$draftBool= Convert-String $draft Boolean
 [bool]$prereleaseBool= Convert-String $prerelease Boolean
@@ -42,4 +56,29 @@ import-module $pathToModule
 
 # Travers all matching files
 $assets = Find-Files -SearchPattern $assetsPattern
+Write-Verbose -Verbose "assets = $assets"
+
+if ($gitSourceOption -eq "repository"){
+	Write-Verbose -Verbose "BUILD_REPOSITORY_PROVIDER = $($Env:BUILD_REPOSITORY_PROVIDER)"
+
+	$gitServiceEndpointName = $($Env:BUILD_REPOSITORY_NAME)
+	Write-Verbose -Verbose "Getting $gitServiceEndpointName service..."
+	$gitServiceEndpoint = GetEndpointData $gitServiceEndpointName
+
+	if ($($Env:BUILD_REPOSITORY_PROVIDER) -eq "GitHub"){
+		$gitSourceOption = "github"
+	}else{
+		$gitSourceOption = "external"
+	}
+
+	$gitSourceUrl = $($gitServiceEndpoint.Url)
+	$token = $($gitServiceEndpoint.Authorization.Parameters.Password)
+	$repo = $($Env:BUILD_REPOSITORY_NAME)
+
+	Write-Verbose -Verbose "Repository gitSourceOption = $gitSourceOption"
+	Write-Verbose -Verbose "Repository gitSourceUrl = $gitSourceUrl"
+	Write-Verbose -Verbose "Repository token = $token"
+	Write-Verbose -Verbose "Repository repo = $repo"
+}
+
 Publish-GitHubRelease -ApplicationName $applicationName -GitSourceOption $gitSourceOption -GitSourceUrl $gitSourceUrl -Token $token -Repo $repo -Owner $owner -TagName $tagName -ReleaseName $releaseName -ReleaseBody $releaseBody -Draft $draftBool -PreRelease $prereleaseBool -Assets $assets
